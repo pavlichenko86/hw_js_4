@@ -24,13 +24,9 @@ let btn4 = document.getElementById('btn4');
 let click = 0;
 let click2 = 0;
 
-function clickCounter(){
-	if(this.id === "btn1"){
-		click = click + 1;		
-	} else if(this.id === "btn2"){
-		click2 = click2 + 1;		
-	}
-}
+function clickCounter(){++click}
+function clickCounter2(){++click2}
+
 function clickRes(){
 			alert(click);
 }
@@ -38,7 +34,7 @@ function clickRes2(){
 			alert(click2);
 }
 btn1.addEventListener('click', clickCounter);
-btn2.addEventListener('click', clickCounter);
+btn2.addEventListener('click', clickCounter2);
 btn3.addEventListener('click', clickRes);
 btn4.addEventListener('click', clickRes2);
 
@@ -48,12 +44,12 @@ let number = document.querySelector('input[name="number"]');
 let degree = document.querySelector('input[name="degree"]');
 let numOk = document.getElementById('numOK');
 
-function numDegree(){
-	let n = parseInt(number.value, 10);
-	let d = parseInt(degree.value, 10);
-	 (isNaN(n) || isNaN(d) ) ? alert("Вводить только цифры") : alert(Math.pow(n, d));
+function numDegree(n, d){
+	num = parseInt(n.value, 10);
+	deg = parseInt(d.value, 10);
+	 (isNaN(num) || isNaN(deg) ) ? alert("Вводить только цифры") : alert(Math.pow(num, deg));
 }
-numOk.addEventListener('click', numDegree);
+numOk.addEventListener('click', function(){numDegree(number, degree)});
 
 //============Задача №6==================
 
@@ -83,8 +79,9 @@ ageBtn.addEventListener('click', function(){age(yourAge)});
 let myArray = [123, 345, "apple", "orange"];
 
 function showArray(arr){
-	(arguments.length) === 0 ? alert("Ошибка, аргумент не задан") : console.log(arr.length);	
+	return Number(myArray.length);	
 }
+console.log(Number(myArray.length));
 showArray(myArray);
 
 //============Задача №10==================
@@ -111,24 +108,17 @@ function guessN(rrr){
 	while(i < 4){
 		if(hiddenNum == rrr){
 			alert("Вы угадали!!! с " + i + " " + " попытки");
-			if(i < 4){
-				i = 4;
-				alert("Конец игры");
-			}
+			low4();
 			break;
 		}
 		else if(hiddenNum < rrr){
 			alert("Вы не угадали!!! Число меньше " + rrr + " " + i++ + " " + " попытка");
-			if(i === 4){
-				alert("GAME OVER");
-			}
+			low5();
 			break;
 		}
 		else if(hiddenNum > rrr){
 			alert("Вы не угадали!!! Число больше " + rrr + " " + i++ + " " + " попытка");
-			if(i === 4){
-				alert("GAME OVER");
-			}
+			low6();
 			break;
 		}
 	}
@@ -138,6 +128,22 @@ function guessN(rrr){
 function rrr(){
     let attempt = document.querySelector('input[name="guess"]');
     isNaN(attempt.value) ? alert("Error") : guessN(attempt.value);
+}
+function low4(){
+	if(i < 4){
+		i = 4;
+		alert("Конец игры");
+	}
+}
+function low5(){
+	if(i === 4){
+		alert("GAME OVER");
+	}
+}
+function low6(){
+	if(i === 4){
+		alert("GAME OVER");
+	}
 }
 
 btn7.addEventListener('click', rrr);
